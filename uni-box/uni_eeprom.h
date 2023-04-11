@@ -4,10 +4,10 @@
 #include <EEPROM.h>
 
 void setupEeprom();
-void setWifi(String ssid, String password);
+void setWifi(char* ssid, char* password);
 char* getSSID();
 char* getPassword();
-byte getStatus();
+char getStatus();
 void clearWifi();
 
 #endif

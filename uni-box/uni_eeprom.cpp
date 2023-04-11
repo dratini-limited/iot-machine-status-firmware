@@ -1,3 +1,5 @@
+#include "uni_eeprom.h"
+
 
 int addrSsid = 0;       // 0->30
 int addrPassword = 31;  // 31-51
@@ -7,9 +9,9 @@ void setupEeprom() {
   EEPROM.begin(512);
 }
 
-void setWifi(String ssid, String password) {
-  int ssidLength = ssid.length();
-  int passwordLength = password.length();
+void setWifi(char* ssid, char* password) {
+  int ssidLength = strlen(ssid);
+  int passwordLength = strlen(password);
 
   EEPROM.write(addrStatus, 1);
   EEPROM.write(addrStatus + 1, ssidLength);
@@ -25,8 +27,8 @@ void setWifi(String ssid, String password) {
 }
 
 char* getSSID() {
-  byte ssidLength = EEPROM.read(addrStatus + 1);
-  char* str = (char*)malloc(sizeof(char) * ssidLength);
+  char ssidLength = EEPROM.read(addrStatus + 1);
+  char str [ssidLength];
   for (int i = 0; i < ssidLength; i++) {
     str[i] = EEPROM.read(addrSsid + i);
   }
@@ -35,8 +37,8 @@ char* getSSID() {
 }
 
 char* getPassword() {
-  byte passwordLength = EEPROM.read(addrStatus + 2);
-  char* str = (char*)malloc(sizeof(char) * passwordLength);
+  char passwordLength = EEPROM.read(addrStatus + 2);
+  char str [passwordLength];
   for (int i = 0; i < passwordLength; i++) {
     str[i] = EEPROM.read(addrPassword + i);
   }
@@ -44,9 +46,9 @@ char* getPassword() {
   return str;
 }
 
-byte getStatus() {
-  byte status = EEPROM.read(addrStatus);
-  return status;
+char getStatus() {
+  char a = EEPROM.read(addrStatus);
+  return a;
 }
 
 void clearWifi() {}
