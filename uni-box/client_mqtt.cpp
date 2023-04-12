@@ -17,8 +17,8 @@ void setupWifiClient(char* ssid, char* password) {
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
 
-  // WiFi.setAutoReconnect(true);
-  // WiFi.persistent(true);
+  WiFi.setAutoReconnect(true);
+  WiFi.persistent(true);
 }
 
 void setupMQTTClient() {

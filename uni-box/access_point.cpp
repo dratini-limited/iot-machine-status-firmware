@@ -25,6 +25,8 @@ void handleExternalWifi() {
   } else {
     server.send(200, "text/html", "FAIL");
   }
+  delay(3000);
+  ESP.restart();
 }
 
 void setupAccessPoint() {

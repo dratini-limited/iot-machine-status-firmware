@@ -14,40 +14,27 @@ void setup() {
   status = getStatus();
   Serial.println(status);
 
-  char* password;
-  password = getPassword();
-  Serial.println(password);
-
-  char* ssid;
-  ssid = getSSID();
-  Serial.println(ssid);
+  int passwordLength = (int)EEPROM.read(ADDR_STATUS + 2);
+  Serial.println(passwordLength);
 
   if (status == 1) {
+    char* password;
+    password = getPassword();
+    Serial.println(password);
+
+    char* ssid;
+    ssid = getSSID();
+    Serial.println(ssid);
     setupWifiClient(ssid, password);
+  } else {
+    setupAccessPoint();
   }
-
-  // if (status == 1) {
-  //   char* ssid;
-  //   ssid = getSSID();
-  //   Serial.println(ssid);
-
-  //   char* password;
-  //   password = getPassword();
-  //   Serial.println(password);
-
-  //   setupWifiClient(ssid, password);
-  // }
-  // else {
-  //   setupAccessPoint();
-  // }
 }
 
 void loop() {
-  // if (doneInit) {
-  //   if (status) {
-  //     handleWifiClient();
-  //   } else {
-  //     handleClient();
-  //   }
-  // }
+  if (status) {
+    handleWifiClient();
+  } else {
+    handleClient();
+  }
 }
