@@ -12,15 +12,19 @@ void handleExternalWifi() {
   String password = server.arg("password");
   Serial.println(ssid);
   Serial.println(password);
-  
+
   char *ssidChar = new char[ssid.length() + 1];
   strcpy(ssidChar, ssid.c_str());
 
   char *passChar = new char[password.length() + 1];
   strcpy(passChar, password.c_str());
 
-  setWifi(ssidChar, passChar);
-  server.send(200, "text/html", "OK");
+  bool ok = setWifi(ssidChar, passChar);
+  if (ok) {
+    server.send(200, "text/html", "OK");
+  } else {
+    server.send(200, "text/html", "FAIL");
+  }
 }
 
 void setupAccessPoint() {
