@@ -12,6 +12,6 @@ bool setWifi(char* ssid, char* password);
 char* getSSID();
 char* getPassword();
 int getStatus();
-void clearWifi();
+bool clearWifi();
 
 #endif
