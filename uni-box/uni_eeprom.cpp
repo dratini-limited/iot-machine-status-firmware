@@ -1,7 +1,7 @@
 #include "uni_eeprom.h"
 
 
-int addrSsid = ADDR_SSID;       // 0->30
+int addrSsid = ADDR_SSID;          // 0->30
 int addrPassword = ADDR_PASSWORD;  // 31-51
 int addrStatus = ADDR_STATUS;
 
@@ -39,7 +39,7 @@ char* getSSID() {
     str[i] = (char)EEPROM.read(addrSsid + i);
   }
   str[ssidLength] = '\0';
-  char *v = new char[ssidLength];
+  char* v = new char[ssidLength];
   strcpy(v, str);
   return v;
 }
@@ -51,7 +51,7 @@ char* getPassword() {
     str[i] = (char)EEPROM.read(addrPassword + i);
   }
   str[passwordLength] = '\0';
-  char *v = new char[passwordLength];
+  char* v = new char[passwordLength];
   strcpy(v, str);
   return v;
 }
@@ -61,4 +61,11 @@ int getStatus() {
   return a;
 }
 
-void clearWifi() {}
+bool clearWifi() {
+  for (int i = 0; i < 512; i++) { EEPROM.write(i, 0); }
+  if (EEPROM.commit()) {
+    return true;
+  } else {
+    return false;
+  }
+}
