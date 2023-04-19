@@ -5,7 +5,13 @@ void setupWifiClient(char* ssid, char* password) {
   Serial.println(ssid);
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  int numNetworks = WiFi.scanNetworks();
+  for (int i = 0; i < numNetworks; i++) {
+    if (WiFi.SSID(i) == ssid) {
+      WiFi.begin(WiFi.SSID(i), password, WiFi.channel(i), WiFi.BSSID(i), true);
+      break;
+    }
+  }
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
