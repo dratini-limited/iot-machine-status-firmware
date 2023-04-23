@@ -6,11 +6,11 @@
 #include <ESP8266WebServer.h>
 #include "uni_eeprom.h"
 
-#ifndef APSSID
+#define DEVICE_CODE "VLXX"
 #define APSSID "UNI_VLXX"
-#endif
 
 void setupAccessPoint();
 void handleClient();
+void setupMQTTClient();
 
 #endif

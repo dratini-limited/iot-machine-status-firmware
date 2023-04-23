@@ -8,11 +8,16 @@ int doneInit = 0;
 const unsigned char Passive_buzzer = BUZZER_PIN;
 const unsigned char State_Input_Pin = 14;
 const unsigned char Button_Pin = 16;
+const unsigned char Output_Pin = 12;
 int val = 0;
 int buttonState = 1;
 int lastButtonState = 1;
 unsigned long buttonPressTime;
 int hold = 0;
+char *ssid1 = "Dratini_company";
+char *password = "hyak210522";
+
+extern PubSubClient mqttClient;
 
 void buzzerSignal() {
   tone(Passive_buzzer, NOTE_AS4, 500);
@@ -29,8 +34,10 @@ void setup() {
   Serial.begin(115200);
   setupEeprom();
   pinMode(Passive_buzzer, OUTPUT);
+  pinMode(Output_Pin, OUTPUT);
   pinMode(State_Input_Pin, INPUT);
   pinMode(Button_Pin, INPUT);
+  setWifi(ssid1, password);
   delay(1000);
   buzzerSignal();
 
@@ -67,6 +74,7 @@ void loop() {
 
   if (buttonState != lastButtonState) {
     if (buttonState == 0) {
+      sendOnOffStatus(true);
       buttonPressTime = millis();
       hold = 1;
     } else { 
