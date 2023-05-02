@@ -21,6 +21,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     digitalWrite(12, stt);
     delay(myObject["Delay"]);
     digitalWrite(12, LOW);
+    sendOnOffStatus(false);
   }
 }
 

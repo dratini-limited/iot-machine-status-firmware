@@ -25,7 +25,7 @@ void handleExternalWifi() {
   } else {
     server.send(200, "text/html", "FAIL");
   }
-  delay(3000);
+  delay(2000);
   ESP.restart();
 }
 

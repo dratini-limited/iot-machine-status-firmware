@@ -12,12 +12,13 @@ const unsigned char Output_Pin = 12;
 int val = 0;
 int buttonState = 1;
 int lastButtonState = 1;
+int lastInputState = 1;
 unsigned long buttonPressTime;
 int hold = 0;
-char *ssid1 = "Dratini_company";
-char *password = "hyak210522";
 
-extern PubSubClient mqttClient;
+// char *ssid1 = "Dratini_company";
+// char *password = "hyak210522";
+// extern PubSubClient mqttClient;
 
 void buzzerSignal() {
   tone(Passive_buzzer, NOTE_AS4, 500);
@@ -35,11 +36,13 @@ void setup() {
   setupEeprom();
   pinMode(Passive_buzzer, OUTPUT);
   pinMode(Output_Pin, OUTPUT);
-  pinMode(State_Input_Pin, INPUT);
+  pinMode(State_Input_Pin, OUTPUT);
   pinMode(Button_Pin, INPUT);
-  setWifi(ssid1, password);
+  // setWifi(ssid1, password);
+  digitalWrite(State_Input_Pin, HIGH);
   delay(1000);
   buzzerSignal();
+  pinMode(State_Input_Pin, INPUT);
 
   Serial.println();
 
@@ -72,9 +75,20 @@ void loop() {
   val = digitalRead(State_Input_Pin);
   buttonState = digitalRead(Button_Pin);
 
+  Serial.println(val);
+
+  if (lastInputState != val) {
+    val = lastInputState;
+    if (val == 0) {
+      sendOnOffStatus(false);
+    } else {
+      sendOnOffStatus(true);
+    }
+    delay(1000);
+  }
+
   if (buttonState != lastButtonState) {
     if (buttonState == 0) {
-      sendOnOffStatus(true);
       buttonPressTime = millis();
       hold = 1;
     } else { 
@@ -87,7 +101,7 @@ void loop() {
     hold = 0;
     bool result = clearWifi();
     Serial.println(result);
-    delay(3000);
+    delay(2000);
     ESP.restart();
   }
 }
