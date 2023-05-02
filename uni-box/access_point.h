@@ -6,8 +6,8 @@
 #include <ESP8266WebServer.h>
 #include "uni_eeprom.h"
 
-#define DEVICE_CODE "VLXX"
-#define APSSID "UNI_VLXX"
+#define DEVICE_CODE "KSLMJH"
+#define APSSID "UNI_KSLMJH"
 
 void setupAccessPoint();
 void handleClient();
