@@ -2,6 +2,9 @@
 
 const char *ssid = APSSID;
 ESP8266WebServer server(80);
+IPAddress local_IP(192,168,4,1);
+IPAddress gateway(192,168,4,1);
+IPAddress subnet(255,255,255,0);
 
 void handleRoot() {
   server.send(200, "text/html", "<h1>You are connected</h1>");
@@ -33,10 +36,11 @@ void setupAccessPoint() {
   Serial.println();
   Serial.print("Configuring access point...");
 
+  WiFi.softAPConfig(local_IP, gateway, subnet);
   WiFi.softAP(ssid);
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.println(myIP);
   server.on("/", handleRoot);
   server.on("/wifi", handleExternalWifi);
   server.begin();

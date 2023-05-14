@@ -75,8 +75,6 @@ void loop() {
   val = digitalRead(State_Input_Pin);
   buttonState = digitalRead(Button_Pin);
 
-  Serial.println(val);
-
   if (lastInputState != val) {
     val = lastInputState;
     if (val == 0) {

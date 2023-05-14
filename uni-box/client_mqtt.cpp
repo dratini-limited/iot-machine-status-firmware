@@ -13,7 +13,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println(topic);
   Serial.println(myObject);
 
-  if (strcmp(topic, "on-off-device") == 0) {
+  if (strcmp(topic, "on-off-device") == 0 && strcmp(myObject["UniDeviceCode"], DEVICE_CODE) == 0) {
     int stt = LOW;
     if (myObject["Status"]) {
       stt = HIGH;
