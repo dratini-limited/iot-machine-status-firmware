@@ -63,7 +63,8 @@ void sendOnOffStatus(bool status) {
   String jsonString = JSON.stringify(myObject);
   char buf[100];
   jsonString.toCharArray(buf, 100);
-  Serial.println("Send to on off status");
+  Serial.print("Send to on off status: ");
+  Serial.println(jsonString);
   client.publish("on-off-status", buf);
 }
 

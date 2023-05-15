@@ -75,8 +75,12 @@ void loop() {
   val = digitalRead(State_Input_Pin);
   buttonState = digitalRead(Button_Pin);
 
+  // Serial.print(val);
+  // Serial.print("-");
+  // Serial.println(lastInputState);
+
   if (lastInputState != val) {
-    val = lastInputState;
+    lastInputState = val;
     if (val == 0) {
       sendOnOffStatus(false);
     } else {
