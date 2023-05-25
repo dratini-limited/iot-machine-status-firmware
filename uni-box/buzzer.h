@@ -93,4 +93,9 @@
 
 #define BUZZER_PIN 13
 
+void alertTone();
+void routerModeSignal();
+void wifiConnectedSignal();
+void wifiFailSignal();
+
 #endif

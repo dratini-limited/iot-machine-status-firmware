@@ -16,20 +16,10 @@ int lastInputState = 1;
 unsigned long buttonPressTime;
 int hold = 0;
 
+
 // char *ssid1 = "Dratini_company";
 // char *password = "hyak210522";
 // extern PubSubClient mqttClient;
-
-void buzzerSignal() {
-  tone(Passive_buzzer, NOTE_AS4, 500);
-  delay(1000);
-  tone(Passive_buzzer, NOTE_FS5, 500);
-  delay(1000);
-  tone(Passive_buzzer, NOTE_CS6, 500);
-  delay(1000);
-  noTone(Passive_buzzer);
-  delay(1000);
-}
 
 void setup() {
   Serial.begin(115200);
@@ -41,7 +31,6 @@ void setup() {
   // setWifi(ssid1, password);
   digitalWrite(State_Input_Pin, HIGH);
   delay(1000);
-  buzzerSignal();
   pinMode(State_Input_Pin, INPUT);
 
   Serial.println();
@@ -82,9 +71,9 @@ void loop() {
   if (lastInputState != val) {
     lastInputState = val;
     if (val == 0) {
-      sendOnOffStatus(false);
-    } else {
       sendOnOffStatus(true);
+    } else {
+      sendOnOffStatus(false);
     }
     delay(1000);
   }
@@ -93,7 +82,7 @@ void loop() {
     if (buttonState == 0) {
       buttonPressTime = millis();
       hold = 1;
-    } else { 
+    } else {
       hold = 0;
     }
   }

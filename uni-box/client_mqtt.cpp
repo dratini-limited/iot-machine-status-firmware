@@ -5,11 +5,14 @@ WiFiClient wifiClient;
 const char broker[] = "ssh.dratini.tech";
 int        port     = 1883;
 const char onOffDeviceTopic[]  = "on-off-device";
+const char alertTopic[]  = "alert";
+int count = 0;
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String myString = String((char*)payload);
   
   JSONVar myObject = JSON.parse(myString);
+  Serial.println(myString);
   Serial.println(topic);
   Serial.println(myObject);
 
@@ -22,6 +25,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
     delay(myObject["Delay"]);
     digitalWrite(12, LOW);
     sendOnOffStatus(false);
+  } else if (strcmp(topic, "alert") == 0 && strcmp(myObject["UniDeviceCode"], DEVICE_CODE) == 0) {
+    Serial.println("alert called");
+    alertTone();
   }
 }
 
@@ -43,6 +49,11 @@ void setupWifiClient(char* ssid, char* password) {
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    count++;
+    if (count >= 20) {
+      wifiFailSignal();
+      break;
+    }
   }
 
   Serial.println("");
@@ -54,6 +65,9 @@ void setupWifiClient(char* ssid, char* password) {
   WiFi.persistent(true);
 
   setupMQTTClient();
+  if (count < 20) {
+    wifiConnectedSignal();
+  }
 }
 
 void sendOnOffStatus(bool status) {
@@ -83,6 +97,12 @@ void setupMQTTClient() {
   Serial.println();
 
   client.subscribe(onOffDeviceTopic);
+
+  Serial.print("Subscribing to topic: ");
+  Serial.println(alertTopic);
+  Serial.println();
+
+  client.subscribe(alertTopic);
 }
 
 void handleWifiClient() {

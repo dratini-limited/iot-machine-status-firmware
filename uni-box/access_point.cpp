@@ -45,6 +45,7 @@ void setupAccessPoint() {
   server.on("/wifi", handleExternalWifi);
   server.begin();
   Serial.println("HTTP server started");
+  routerModeSignal();
 }
 
 void handleClient() {

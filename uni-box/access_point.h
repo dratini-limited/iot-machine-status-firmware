@@ -5,9 +5,10 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include "uni_eeprom.h"
+#include "buzzer.h"
 
-#define DEVICE_CODE "KSLMJH"
-#define APSSID "UNI_KSLMJH"
+#define DEVICE_CODE "DARUI"
+#define APSSID "UNI_DARUI"
 
 void setupAccessPoint();
 void handleClient();
