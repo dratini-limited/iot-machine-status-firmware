@@ -59,3 +59,14 @@ void routerModeSignal() {
   noTone(Passive_buzzer);
   delay(1000);
 }
+
+void openingSignal() {
+  tone(Passive_buzzer, NOTE_G6, 1000);
+  delay(200);
+  noTone(Passive_buzzer);
+  delay(100);
+  tone(Passive_buzzer, NOTE_G6, 1000);
+  delay(200);
+  noTone(Passive_buzzer);
+  delay(100);
+}

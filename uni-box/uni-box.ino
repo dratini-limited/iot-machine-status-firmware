@@ -17,8 +17,8 @@ unsigned long buttonPressTime;
 int hold = 0;
 
 
-// char *ssid1 = "Dratini_company";
-// char *password = "hyak210522";
+// char* ssid1 = "Dratini_company";
+// char* password = "hyak210522";
 // extern PubSubClient mqttClient;
 
 void setup() {
@@ -67,7 +67,10 @@ void loop() {
   // Serial.print(val);
   // Serial.print("-");
   // Serial.println(lastInputState);
-
+  if (val == 0) {
+    openingSignal();
+    delay(1000);
+  }
   if (lastInputState != val) {
     lastInputState = val;
     if (val == 0) {

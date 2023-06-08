@@ -97,5 +97,6 @@ void alertTone();
 void routerModeSignal();
 void wifiConnectedSignal();
 void wifiFailSignal();
+void openingSignal();
 
 #endif
