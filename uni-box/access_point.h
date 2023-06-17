@@ -7,8 +7,9 @@
 #include "uni_eeprom.h"
 #include "buzzer.h"
 
-#define DEVICE_CODE "DARUI"
-#define APSSID "UNI_DARUI"
+#define DEVICE_CODE "KAMUI"
+#define APSSID "UNI_KAMUI"
+#define DEVICE_PASSWORD "KAMUI123"
 
 void setupAccessPoint();
 void handleClient();

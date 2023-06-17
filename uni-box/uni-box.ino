@@ -34,6 +34,8 @@ void setup() {
   pinMode(State_Input_Pin, INPUT);
 
   Serial.println();
+  Serial.println(DEVICE_CODE);
+  Serial.println(DEVICE_PASSWORD);
 
   status = getStatus();
   Serial.println(status);
@@ -93,6 +95,7 @@ void loop() {
   lastButtonState = buttonState;
   if (hold && millis() - buttonPressTime > 5000) {
     hold = 0;
+    Serial.println("Clearing wifi");
     bool result = clearWifi();
     Serial.println(result);
     delay(2000);
