@@ -13,8 +13,16 @@ void handleRoot() {
 void handleExternalWifi() {
   String ssid = server.arg("ssid");
   String password = server.arg("password");
+  String devicePassword = server.arg("devicePassword");
   Serial.println(ssid);
   Serial.println(password);
+  Serial.println(devicePassword);
+
+  if (devicePassword != DEVICE_PASSWORD) {
+    Serial.print("Wrong password");
+    server.send(200, "text/html", "FAIL");
+    return;
+  }
 
   char *ssidChar = new char[ssid.length() + 1];
   strcpy(ssidChar, ssid.c_str());
