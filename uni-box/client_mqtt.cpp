@@ -2,7 +2,6 @@
 
 WiFiClient wifiClient;
 
-// const char broker[] = "ssh.dratini.tech";
 const char broker[] = "103.11.198.200";
 int        port     = 1883;
 const char onOffDeviceTopic[]  = "on-off-device";
