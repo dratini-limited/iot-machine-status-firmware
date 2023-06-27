@@ -14,11 +14,13 @@ void handleExternalWifi() {
   String ssid = server.arg("ssid");
   String password = server.arg("password");
   String devicePassword = server.arg("devicePassword");
+  String deviceCode = server.arg("deviceCode");
   Serial.println(ssid);
   Serial.println(password);
   Serial.println(devicePassword);
+  Serial.println(deviceCode);
 
-  if (devicePassword != DEVICE_PASSWORD) {
+  if (devicePassword != DEVICE_PASSWORD || deviceCode != DEVICE_CODE) {
     Serial.print("Wrong password");
     server.send(200, "text/html", "FAIL");
     return;
