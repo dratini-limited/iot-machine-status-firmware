@@ -22,7 +22,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
       stt = HIGH;
     }
     digitalWrite(12, stt);
-    delay(myObject["Delay"]);
+    delay(500);
     digitalWrite(12, LOW);
     sendOnOffStatus(false);
   } else if (strcmp(topic, "alert") == 0 && strcmp(myObject["UniDeviceCode"], DEVICE_CODE) == 0) {
